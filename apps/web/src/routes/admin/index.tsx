@@ -5,7 +5,12 @@
 
 import { Title } from "@solidjs/meta";
 import { A } from "@solidjs/router";
-import { createSignal, createEffect, Show, For } from "solid-js";
+import { createSignal, createEffect, Show, For, Component } from "solid-js";
+import {
+  Users, Calendar, Video, DollarSign, Search,
+  FileText, Shield, Activity, BarChart, CheckCircle,
+  UserPlus
+} from "lucide-solid";
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
 
@@ -66,9 +71,9 @@ export default function AdminDashboardPage() {
   const formatCurrency = (amount: number) => `KES ${amount.toLocaleString()}`;
 
   const quickActions = [
-    { label: 'Pending Verifications', count: metrics()?.pendingVerifications || 0, href: '/admin/verifications', icon: '🔍' },
-    { label: 'Today\'s Appointments', count: metrics()?.todayAppointments || 0, href: '/admin/appointments', icon: '📅' },
-    { label: 'Active Consultations', count: metrics()?.activeConsultations || 0, href: '/admin/consultations', icon: '📹' },
+    { label: 'Pending Verifications', count: metrics()?.pendingVerifications || 0, href: '/admin/verifications', icon: Search },
+    { label: 'Today\'s Appointments', count: metrics()?.todayAppointments || 0, href: '/admin/appointments', icon: Calendar },
+    { label: 'Active Consultations', count: metrics()?.activeConsultations || 0, href: '/admin/consultations', icon: Video },
   ];
 
   const formatTime = (timestamp: string) => {
@@ -76,17 +81,17 @@ export default function AdminDashboardPage() {
     const now = new Date();
     const diff = now.getTime() - date.getTime();
     const minutes = Math.floor(diff / 60000);
-    
+
     if (minutes < 60) return `${minutes}m ago`;
     if (minutes < 1440) return `${Math.floor(minutes / 60)}h ago`;
     return date.toLocaleDateString();
   };
 
-  const activityIcons: Record<string, string> = {
-    registration: '👤',
-    appointment: '📅',
-    verification: '✅',
-    payment: '💰',
+  const activityIcons: Record<string, Component> = {
+    registration: UserPlus,
+    appointment: Calendar,
+    verification: CheckCircle,
+    payment: DollarSign,
   };
 
   return (
@@ -114,10 +119,10 @@ export default function AdminDashboardPage() {
                 {(action) => (
                   <A
                     href={action.href}
-                    class="bg-base-100 rounded-2xl border border-base-200 p-6 hover:shadow-md transition-shadow flex items-center gap-4"
+                    class="bg-base-100 rounded-2xl border border-base-200 p-6 hover:shadow-md transition-shadow flex items-center gap-4 group"
                   >
-                    <div class="w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center text-3xl">
-                      {action.icon}
+                    <div class="w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors">
+                      <action.icon class="w-8 h-8" />
                     </div>
                     <div>
                       <p class="text-2xl font-bold text-primary">{action.count}</p>
@@ -139,8 +144,8 @@ export default function AdminDashboardPage() {
                       {metrics()?.totalUsers?.toLocaleString()}
                     </p>
                   </div>
-                  <div class="w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center">
-                    <span class="text-xl">👥</span>
+                  <div class="w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center text-blue-600">
+                    <Users class="w-6 h-6" />
                   </div>
                 </div>
               </div>
@@ -154,8 +159,8 @@ export default function AdminDashboardPage() {
                       {metrics()?.totalDoctors?.toLocaleString()}
                     </p>
                   </div>
-                  <div class="w-10 h-10 bg-green-100 rounded-xl flex items-center justify-center">
-                    <span class="text-xl">👨‍⚕️</span>
+                  <div class="w-10 h-10 bg-green-100 rounded-xl flex items-center justify-center text-green-600">
+                    <Activity class="w-6 h-6" />
                   </div>
                 </div>
               </div>
@@ -169,8 +174,8 @@ export default function AdminDashboardPage() {
                       {metrics()?.totalAppointments?.toLocaleString()}
                     </p>
                   </div>
-                  <div class="w-10 h-10 bg-purple-100 rounded-xl flex items-center justify-center">
-                    <span class="text-xl">📅</span>
+                  <div class="w-10 h-10 bg-purple-100 rounded-xl flex items-center justify-center text-purple-600">
+                    <Calendar class="w-6 h-6" />
                   </div>
                 </div>
               </div>
@@ -184,8 +189,8 @@ export default function AdminDashboardPage() {
                       {formatCurrency(metrics()?.totalRevenue || 0)}
                     </p>
                   </div>
-                  <div class="w-10 h-10 bg-success/10 rounded-xl flex items-center justify-center">
-                    <span class="text-xl">💰</span>
+                  <div class="w-10 h-10 bg-success/10 rounded-xl flex items-center justify-center text-success">
+                    <DollarSign class="w-6 h-6" />
                   </div>
                 </div>
               </div>
@@ -204,17 +209,20 @@ export default function AdminDashboardPage() {
                 }>
                   <div class="divide-y divide-base-200">
                     <For each={activities()}>
-                      {(activity) => (
-                        <div class="p-4 flex items-center gap-4">
-                          <div class="w-10 h-10 bg-base-200 rounded-full flex items-center justify-center">
-                            {activityIcons[activity.type] || '📌'}
+                      {(activity) => {
+                        const Icon = activityIcons[activity.type] || Activity;
+                        return (
+                          <div class="p-4 flex items-center gap-4">
+                            <div class="w-10 h-10 bg-base-200 rounded-full flex items-center justify-center">
+                              <Icon class="w-5 h-5" />
+                            </div>
+                            <div class="flex-1">
+                              <p class="text-base-content">{activity.description}</p>
+                              <p class="text-sm text-base-content/60">{formatTime(activity.timestamp)}</p>
+                            </div>
                           </div>
-                          <div class="flex-1">
-                            <p class="text-base-content">{activity.description}</p>
-                            <p class="text-sm text-base-content/60">{formatTime(activity.timestamp)}</p>
-                          </div>
-                        </div>
-                      )}
+                        );
+                      }}
                     </For>
                   </div>
                 </Show>
@@ -224,20 +232,20 @@ export default function AdminDashboardPage() {
               <div class="bg-base-100 rounded-2xl border border-base-200 p-6">
                 <h2 class="font-bold text-base-content mb-4">Quick Links</h2>
                 <div class="space-y-2">
-                  <A href="/admin/verifications" class="btn btn-ghost justify-start w-full">
-                    🔍 Doctor Verifications
+                  <A href="/admin/verifications" class="btn btn-ghost justify-start w-full gap-3">
+                    <Search class="w-5 h-5" /> Doctor Verifications
                   </A>
-                  <A href="/admin/articles/editor" class="btn btn-ghost justify-start w-full">
-                    📝 Create Article
+                  <A href="/admin/articles/editor" class="btn btn-ghost justify-start w-full gap-3">
+                    <FileText class="w-5 h-5" /> Create Article
                   </A>
-                  <A href="/admin/moderation" class="btn btn-ghost justify-start w-full">
-                    🛡️ Moderation Queue
+                  <A href="/admin/moderation" class="btn btn-ghost justify-start w-full gap-3">
+                    <Shield class="w-5 h-5" /> Moderation Queue
                   </A>
-                  <A href="/admin/users" class="btn btn-ghost justify-start w-full">
-                    👥 User Management
+                  <A href="/admin/users" class="btn btn-ghost justify-start w-full gap-3">
+                    <Users class="w-5 h-5" /> User Management
                   </A>
-                  <A href="/admin/reports" class="btn btn-ghost justify-start w-full">
-                    📊 Reports
+                  <A href="/admin/reports" class="btn btn-ghost justify-start w-full gap-3">
+                    <BarChart class="w-5 h-5" /> Reports
                   </A>
                 </div>
               </div>

@@ -6,6 +6,12 @@
 import { Title } from "@solidjs/meta";
 import { useParams, useSearchParams, A } from "@solidjs/router";
 import { createSignal, createEffect, Show } from "solid-js";
+import {
+  User, Calendar, Video, Hospital, Banknote,
+  FileText, Smartphone, CreditCard, Clock,
+  CheckCircle, AlertCircle, Info, ChevronLeft,
+  Loader2
+} from "lucide-solid";
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
 
@@ -30,7 +36,7 @@ interface Appointment {
 export default function AppointmentDetailPage() {
   const params = useParams();
   const [searchParams] = useSearchParams();
-  
+
   const [appointment, setAppointment] = createSignal<Appointment | null>(null);
   const [loading, setLoading] = createSignal(true);
   const [error, setError] = createSignal('');
@@ -45,7 +51,7 @@ export default function AppointmentDetailPage() {
         credentials: 'include',
       });
       const data = await response.json();
-      
+
       if (data.success) {
         setAppointment(data.data);
       } else {
@@ -114,10 +120,8 @@ export default function AppointmentDetailPage() {
         <div class="bg-base-100 border-b border-base-200 py-4">
           <div class="container mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center gap-4">
-              <A href="/appointments/my" class="btn btn-ghost btn-sm">
-                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-                </svg>
+              <A href="/appointments/my" class="btn btn-ghost btn-sm gap-2">
+                <ChevronLeft class="w-5 h-5" />
                 My Appointments
               </A>
               <h1 class="text-xl font-bold text-base-content">Appointment Details</h1>
@@ -133,7 +137,9 @@ export default function AppointmentDetailPage() {
           }>
             <Show when={appointment()} fallback={
               <div class="text-center py-12">
-                <div class="text-6xl mb-4">😕</div>
+                <div class="w-20 h-20 bg-base-200 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <AlertCircle class="w-10 h-10 text-base-content/40" />
+                </div>
                 <h2 class="text-xl font-bold text-base-content mb-2">Appointment Not Found</h2>
                 <p class="text-base-content/60 mb-4">{error()}</p>
                 <A href="/doctors" class="btn btn-primary">Find a Doctor</A>
@@ -143,9 +149,7 @@ export default function AppointmentDetailPage() {
                 {/* Status Banner */}
                 <Show when={appointment()?.status === 'pending_payment'}>
                   <div class="alert alert-warning mb-6">
-                    <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-                    </svg>
+                    <AlertCircle class="w-6 h-6" />
                     <div>
                       <h3 class="font-bold">Payment Required</h3>
                       <p class="text-sm">Please complete payment to confirm your appointment</p>
@@ -154,10 +158,8 @@ export default function AppointmentDetailPage() {
                 </Show>
 
                 <Show when={appointment()?.status === 'confirmed'}>
-                  <div class="alert alert-success mb-6">
-                    <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
+                  <div class="alert alert-success mb-6 text-white">
+                    <CheckCircle class="w-6 h-6" />
                     <div>
                       <h3 class="font-bold">Appointment Confirmed!</h3>
                       <p class="text-sm">Your appointment has been confirmed</p>
@@ -166,12 +168,12 @@ export default function AppointmentDetailPage() {
                 </Show>
 
                 {/* Appointment Card */}
-                <div class="bg-base-100 rounded-2xl border border-base-200 overflow-hidden">
+                <div class="bg-base-100 rounded-2xl border border-base-200 overflow-hidden shadow-sm">
                   {/* Doctor Section */}
                   <div class="p-6 border-b border-base-200">
                     <div class="flex items-center gap-4">
                       <div class="w-16 h-16 rounded-xl bg-primary/10 flex items-center justify-center text-2xl font-bold text-primary">
-                        {appointment()?.doctor?.firstName[0]}{appointment()?.doctor?.lastName[0]}
+                        <User class="w-8 h-8" />
                       </div>
                       <div class="flex-1">
                         <h2 class="text-lg font-bold text-base-content">
@@ -188,8 +190,8 @@ export default function AppointmentDetailPage() {
                   {/* Details Section */}
                   <div class="p-6 space-y-4">
                     <div class="flex items-center gap-4">
-                      <div class="w-10 h-10 rounded-lg bg-base-200 flex items-center justify-center">
-                        📅
+                      <div class="w-10 h-10 rounded-lg bg-base-200 flex items-center justify-center text-base-content/70">
+                        <Calendar class="w-5 h-5" />
                       </div>
                       <div>
                         <p class="text-sm text-base-content/60">Date & Time</p>
@@ -210,8 +212,8 @@ export default function AppointmentDetailPage() {
                     </div>
 
                     <div class="flex items-center gap-4">
-                      <div class="w-10 h-10 rounded-lg bg-base-200 flex items-center justify-center">
-                        {appointment()?.consultationType === 'video' ? '📹' : '🏥'}
+                      <div class="w-10 h-10 rounded-lg bg-base-200 flex items-center justify-center text-base-content/70">
+                        {appointment()?.consultationType === 'video' ? <Video class="w-5 h-5" /> : <Hospital class="w-5 h-5" />}
                       </div>
                       <div>
                         <p class="text-sm text-base-content/60">Consultation Type</p>
@@ -222,8 +224,8 @@ export default function AppointmentDetailPage() {
                     </div>
 
                     <div class="flex items-center gap-4">
-                      <div class="w-10 h-10 rounded-lg bg-base-200 flex items-center justify-center">
-                        💰
+                      <div class="w-10 h-10 rounded-lg bg-base-200 flex items-center justify-center text-base-content/70">
+                        <Banknote class="w-5 h-5" />
                       </div>
                       <div>
                         <p class="text-sm text-base-content/60">Consultation Fee</p>
@@ -235,8 +237,8 @@ export default function AppointmentDetailPage() {
 
                     <Show when={appointment()?.notes}>
                       <div class="flex items-start gap-4">
-                        <div class="w-10 h-10 rounded-lg bg-base-200 flex items-center justify-center">
-                          📝
+                        <div class="w-10 h-10 rounded-lg bg-base-200 flex items-center justify-center text-base-content/70">
+                          <FileText class="w-5 h-5" />
                         </div>
                         <div>
                           <p class="text-sm text-base-content/60">Notes</p>
@@ -250,7 +252,7 @@ export default function AppointmentDetailPage() {
                   <Show when={appointment()?.status === 'pending_payment'}>
                     <div class="p-6 bg-base-200/30 border-t border-base-200">
                       <h3 class="font-semibold text-base-content mb-4">Complete Payment</h3>
-                      
+
                       <Show when={error()}>
                         <div class="alert alert-error mb-4">
                           <span class="text-sm">{error()}</span>
@@ -263,7 +265,7 @@ export default function AppointmentDetailPage() {
                           onClick={() => handlePayment('mpesa')}
                           disabled={paymentLoading()}
                         >
-                          <span class="text-2xl">📱</span>
+                          <Smartphone class="w-8 h-8" />
                           <span class="font-semibold">M-Pesa</span>
                           <span class="text-xs text-base-content/60">Mobile Money</span>
                         </button>
@@ -272,7 +274,7 @@ export default function AppointmentDetailPage() {
                           onClick={() => handlePayment('card')}
                           disabled={paymentLoading()}
                         >
-                          <span class="text-2xl">💳</span>
+                          <CreditCard class="w-8 h-8" />
                           <span class="font-semibold">Card</span>
                           <span class="text-xs text-base-content/60">Visa / Mastercard</span>
                         </button>
@@ -280,7 +282,7 @@ export default function AppointmentDetailPage() {
 
                       <Show when={paymentLoading()}>
                         <div class="flex justify-center mt-4">
-                          <span class="loading loading-spinner loading-md text-primary"></span>
+                          <Loader2 class="w-6 h-6 animate-spin text-primary" />
                         </div>
                       </Show>
                     </div>
@@ -291,11 +293,11 @@ export default function AppointmentDetailPage() {
                     <div class="p-6 bg-base-200/30 border-t border-base-200">
                       <div class="flex gap-4">
                         <Show when={appointment()?.consultationType === 'video'}>
-                          <A 
+                          <A
                             href={`/consultations/${appointment()?.id}/call`}
-                            class="btn btn-primary flex-1"
+                            class="btn btn-primary flex-1 shadow-lg shadow-primary/20 text-white"
                           >
-                            <span class="mr-2">📹</span>
+                            <Video class="w-5 h-5 mr-2" />
                             Join Video Call
                           </A>
                         </Show>
@@ -309,8 +311,8 @@ export default function AppointmentDetailPage() {
 
                 {/* Help Section */}
                 <div class="mt-6 text-center">
-                  <p class="text-sm text-base-content/60">
-                    Need help? <a href="/support" class="text-primary hover:underline">Contact Support</a>
+                  <p class="text-sm text-base-content/60 flex items-center justify-center gap-1">
+                    Need help? <a href="/support" class="text-primary hover:underline font-medium">Contact Support</a>
                   </p>
                 </div>
               </div>

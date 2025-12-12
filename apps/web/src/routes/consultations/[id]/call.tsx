@@ -6,6 +6,11 @@
 import { Title } from "@solidjs/meta";
 import { useParams, useNavigate } from "@solidjs/router";
 import { createSignal, createEffect, onCleanup, Show } from "solid-js";
+import {
+  Video, VideoOff, Mic, MicOff, PhoneOff,
+  User, CheckCircle, AlertCircle, Loader2,
+  Clock, Shield
+} from "lucide-solid";
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
 
@@ -23,7 +28,7 @@ interface ConsultationSession {
 export default function VideoCallPage() {
   const params = useParams();
   const navigate = useNavigate();
-  
+
   const [session, setSession] = createSignal<ConsultationSession | null>(null);
   const [loading, setLoading] = createSignal(true);
   const [error, setError] = createSignal('');
@@ -44,11 +49,11 @@ export default function VideoCallPage() {
         { credentials: 'include' }
       );
       const data = await response.json();
-      
+
       if (data.success) {
         setSession(data.data);
         setCallState('connected');
-        
+
         // Start timer
         timerInterval = setInterval(() => {
           setElapsedTime(t => t + 1);
@@ -92,9 +97,9 @@ export default function VideoCallPage() {
         method: 'POST',
         credentials: 'include',
       });
-      
+
       setCallState('ended');
-      
+
       // Redirect to summary after short delay
       setTimeout(() => {
         navigate(`/consultations/${params.id}`);
@@ -108,29 +113,33 @@ export default function VideoCallPage() {
     <>
       <Title>Video Consultation | Precta</Title>
 
-      <div class="min-h-screen bg-gray-900 flex flex-col">
+      <div class="min-h-screen bg-gray-900 flex flex-col font-sans">
         <Show when={!loading()} fallback={
           <div class="flex-1 flex items-center justify-center">
             <div class="text-center">
-              <span class="loading loading-spinner loading-lg text-primary"></span>
-              <p class="text-white mt-4">Connecting to consultation...</p>
+              <Loader2 class="w-12 h-12 text-primary animate-spin mx-auto mb-4" />
+              <p class="text-white mt-4 font-medium">Connecting to consultation...</p>
             </div>
           </div>
         }>
           <Show when={session() && callState() !== 'ended'} fallback={
             <div class="flex-1 flex items-center justify-center">
-              <div class="text-center">
+              <div class="text-center bg-gray-800 p-8 rounded-2xl max-w-sm mx-4">
                 <Show when={callState() === 'ended'}>
-                  <div class="text-6xl mb-4">✅</div>
+                  <div class="w-20 h-20 bg-success/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <CheckCircle class="w-10 h-10 text-success" />
+                  </div>
                   <h2 class="text-2xl font-bold text-white mb-2">Consultation Ended</h2>
                   <p class="text-gray-400">Redirecting to summary...</p>
                 </Show>
                 <Show when={error()}>
-                  <div class="text-6xl mb-4">😕</div>
+                  <div class="w-20 h-20 bg-error/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <AlertCircle class="w-10 h-10 text-error" />
+                  </div>
                   <h2 class="text-xl font-bold text-white mb-2">Unable to Connect</h2>
-                  <p class="text-gray-400">{error()}</p>
-                  <button 
-                    class="btn btn-primary mt-4"
+                  <p class="text-gray-400 mb-6">{error()}</p>
+                  <button
+                    class="btn btn-primary w-full"
                     onClick={() => navigate('/appointments/my')}
                   >
                     Back to Appointments
@@ -146,17 +155,17 @@ export default function VideoCallPage() {
                 <Show when={!isVideoOff()} fallback={
                   <div class="text-center">
                     <div class="w-32 h-32 bg-gray-700 rounded-full flex items-center justify-center mx-auto mb-4">
-                      <span class="text-6xl">👤</span>
+                      <User class="w-16 h-16 text-gray-500" />
                     </div>
                     <p class="text-gray-400">Video is off</p>
                   </div>
                 }>
                   {/* In production, this would be the 100ms video element */}
                   <div class="text-center">
-                    <div class="w-48 h-48 bg-linear-to-br from-primary to-secondary rounded-full flex items-center justify-center mx-auto mb-4 animate-pulse">
-                      <span class="text-8xl">📹</span>
+                    <div class="w-48 h-48 bg-linear-to-br from-primary to-secondary rounded-full flex items-center justify-center mx-auto mb-6 animate-pulse shadow-[0_0_50px_rgba(var(--color-primary),0.3)]">
+                      <Video class="w-20 h-20 text-white" />
                     </div>
-                    <p class="text-white text-lg">
+                    <p class="text-white text-lg font-medium">
                       {session()?.role === 'host' ? 'Waiting for patient...' : 'Connected with doctor'}
                     </p>
                   </div>
@@ -164,81 +173,66 @@ export default function VideoCallPage() {
               </div>
 
               {/* Local Video (PiP) */}
-              <div class="absolute bottom-24 right-4 w-48 h-36 bg-gray-700 rounded-xl overflow-hidden shadow-lg border-2 border-gray-600">
-                <div class="w-full h-full flex items-center justify-center">
-                  <span class="text-4xl">👤</span>
+              <div class="absolute bottom-6 right-6 w-48 h-36 bg-gray-700 rounded-2xl overflow-hidden shadow-2xl border-2 border-gray-600/50">
+                <div class="w-full h-full flex items-center justify-center bg-black/40 backdrop-blur-sm">
+                  <User class="w-12 h-12 text-white/50" />
                 </div>
               </div>
 
               {/* Top Bar */}
-              <div class="absolute top-0 left-0 right-0 p-4 bg-linear-to-b from-black/50 to-transparent">
+              <div class="absolute top-0 left-0 right-0 p-6 bg-linear-to-b from-black/80 to-transparent">
                 <div class="flex items-center justify-between">
                   <div class="flex items-center gap-4">
-                    <div class="flex items-center gap-2">
-                      <div class="w-3 h-3 bg-success rounded-full animate-pulse"></div>
-                      <span class="text-white font-medium">{formatTime(elapsedTime())}</span>
+                    <div class="flex items-center gap-2 bg-black/40 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/10">
+                      <div class="w-2.5 h-2.5 bg-success rounded-full animate-pulse shadow-[0_0_10px_rgba(34,197,94,0.5)]"></div>
+                      <span class="text-white font-medium font-mono text-sm">{formatTime(elapsedTime())}</span>
                     </div>
-                    <span class="badge badge-ghost text-white">
+                    <span class="badge badge-lg border-none bg-white/10 text-white backdrop-blur-md">
                       {session()?.role === 'host' ? 'Doctor' : 'Patient'}
                     </span>
                   </div>
-                  
-                  <div class="text-white text-sm opacity-70">
-                    Room: {session()?.roomId?.slice(0, 8)}...
+
+                  <div class="flex items-center gap-2 text-white/70 bg-black/20 backdrop-blur-md px-3 py-1.5 rounded-full text-xs">
+                    <Shield class="w-3 h-3" />
+                    Encrypted
                   </div>
                 </div>
               </div>
             </div>
 
             {/* Controls */}
-            <div class="bg-gray-800 p-6">
-              <div class="flex items-center justify-center gap-6">
+            <div class="bg-gray-900/90 backdrop-blur-xl border-t border-white/5 p-8">
+              <div class="flex items-center justify-center gap-8">
                 {/* Mute Audio */}
                 <button
-                  class={`btn btn-circle btn-lg ${isAudioMuted() ? 'btn-error' : 'btn-ghost border-2 border-gray-600 text-white'}`}
+                  class={`btn btn-circle btn-xl w-14 h-14 ${isAudioMuted() ? 'btn-error' : 'bg-gray-700 hover:bg-gray-600 border-none text-white'}`}
                   onClick={toggleAudio}
                 >
-                  <Show when={isAudioMuted()} fallback={
-                    <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
-                    </svg>
-                  }>
-                    <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2" />
-                    </svg>
+                  <Show when={isAudioMuted()} fallback={<Mic class="w-6 h-6" />}>
+                    <MicOff class="w-6 h-6" />
                   </Show>
                 </button>
 
                 {/* Toggle Video */}
                 <button
-                  class={`btn btn-circle btn-lg ${isVideoOff() ? 'btn-error' : 'btn-ghost border-2 border-gray-600 text-white'}`}
+                  class={`btn btn-circle btn-xl w-14 h-14 ${isVideoOff() ? 'btn-error' : 'bg-gray-700 hover:bg-gray-600 border-none text-white'}`}
                   onClick={toggleVideo}
                 >
-                  <Show when={isVideoOff()} fallback={
-                    <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
-                    </svg>
-                  }>
-                    <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                    </svg>
+                  <Show when={isVideoOff()} fallback={<Video class="w-6 h-6" />}>
+                    <VideoOff class="w-6 h-6" />
                   </Show>
                 </button>
 
                 {/* End Call */}
                 <button
-                  class="btn btn-circle btn-lg btn-error"
+                  class="btn btn-circle btn-xl w-16 h-16 btn-error shadow-[0_0_20px_rgba(239,68,68,0.4)]"
                   onClick={endCall}
                 >
-                  <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 8l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2M5 3a2 2 0 00-2 2v1c0 8.284 6.716 15 15 15h1a2 2 0 002-2v-3.28a1 1 0 00-.684-.948l-4.493-1.498a1 1 0 00-1.21.502l-1.13 2.257a11.042 11.042 0 01-5.516-5.517l2.257-1.128a1 1 0 00.502-1.21L9.228 3.683A1 1 0 008.279 3H5z" />
-                  </svg>
+                  <PhoneOff class="w-8 h-8" />
                 </button>
               </div>
 
-              <p class="text-center text-gray-500 text-sm mt-4">
+              <p class="text-center text-gray-500 text-sm mt-6 font-medium">
                 End the call when your consultation is complete
               </p>
             </div>
