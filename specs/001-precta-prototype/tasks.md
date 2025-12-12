@@ -91,18 +91,18 @@ This delivers:
 
 **Goal**: Initialize Bun workspaces monorepo with all packages and Docker services.
 
-- [ ] T001 Create root package.json with workspaces configuration at `/package.json`
-- [ ] T002 Create base tsconfig.json with strict mode and path aliases at `/tsconfig.json`
-- [ ] T003 Update docker-compose.yml with healthchecks at `/docker-compose.yml`
-- [ ] T004 Create .env.example with all environment variables at `/.env.example`
-- [ ] T005 [P] Create apps/backend package.json at `/apps/backend/package.json`
-- [ ] T006 [P] Create apps/backend tsconfig.json at `/apps/backend/tsconfig.json`
-- [ ] T007 [P] Create packages/db package.json at `/packages/db/package.json`
-- [ ] T008 [P] Create packages/db tsconfig.json at `/packages/db/tsconfig.json`
-- [ ] T009 Create packages/shared package.json at `/packages/shared/package.json`
-- [ ] T010 Create packages/shared tsconfig.json at `/packages/shared/tsconfig.json`
-- [ ] T011 Move existing SolidStart app to apps/web and update package.json at `/apps/web/package.json`
-- [ ] T012 Run bun install and verify workspace linking
+- [x] T001 Create root package.json with workspaces configuration at `/package.json`
+- [x] T002 Create base tsconfig.json with strict mode and path aliases at `/tsconfig.json`
+- [x] T003 Update docker-compose.yml with healthchecks at `/docker-compose.yml`
+- [x] T004 Create .env.example with all environment variables at `/.env.example`
+- [x] T005 [P] Create apps/backend package.json at `/apps/backend/package.json`
+- [x] T006 [P] Create apps/backend tsconfig.json at `/apps/backend/tsconfig.json`
+- [x] T007 [P] Create packages/db package.json at `/packages/db/package.json`
+- [x] T008 [P] Create packages/db tsconfig.json at `/packages/db/tsconfig.json`
+- [x] T009 Create packages/shared package.json at `/packages/shared/package.json`
+- [x] T010 Create packages/shared tsconfig.json at `/packages/shared/tsconfig.json`
+- [x] T011 Move existing SolidStart app to apps/web and update package.json at `/apps/web/package.json`
+- [x] T012 Run bun install and verify workspace linking
 
 ---
 
@@ -112,32 +112,32 @@ This delivers:
 
 ### Schema Files (Parallelizable)
 
-- [ ] T013 [P] Create user schema with roles enum at `/packages/db/src/schema/users.ts`
-- [ ] T014 [P] Create patient schema at `/packages/db/src/schema/patients.ts`
-- [ ] T015 [P] Create doctor schema with verification status at `/packages/db/src/schema/doctors.ts`
-- [ ] T016 [P] Create doctor_availability schema at `/packages/db/src/schema/doctors.ts`
-- [ ] T017 [P] Create doctor_credential schema at `/packages/db/src/schema/doctors.ts`
-- [ ] T018 [P] Create clinic schema (tenant) at `/packages/db/src/schema/clinics.ts`
-- [ ] T019 [P] Create appointment schema with status enum at `/packages/db/src/schema/appointments.ts`
-- [ ] T020 [P] Create consultation schema at `/packages/db/src/schema/consultations.ts`
-- [ ] T021 [P] Create prescription schema with medications jsonb at `/packages/db/src/schema/prescriptions.ts`
-- [ ] T022 [P] Create medical_record schema at `/packages/db/src/schema/records.ts`
+- [x] T013 [P] Create user schema with roles enum at `/packages/db/src/schema/users.ts`
+- [x] T014 [P] Create patient schema at `/packages/db/src/schema/patients.ts`
+- [x] T015 [P] Create doctor schema with verification status at `/packages/db/src/schema/doctors.ts`
+- [x] T016 [P] Create doctor_availability schema at `/packages/db/src/schema/doctors.ts`
+- [x] T017 [P] Create doctor_credential schema at `/packages/db/src/schema/doctors.ts`
+- [x] T018 [P] Create clinic schema (tenant) at `/packages/db/src/schema/clinics.ts`
+- [x] T019 [P] Create appointment schema with status enum at `/packages/db/src/schema/appointments.ts`
+- [x] T020 [P] Create consultation schema at `/packages/db/src/schema/consultations.ts`
+- [x] T021 [P] Create prescription schema with medications jsonb at `/packages/db/src/schema/prescriptions.ts`
+- [x] T022 [P] Create medical_record schema at `/packages/db/src/schema/records.ts`
 
 ### Additional Schemas
 
-- [ ] T023 Create order and order_item schemas at `/packages/db/src/schema/orders.ts`
-- [ ] T024 Create payment schema at `/packages/db/src/schema/payments.ts`
-- [ ] T025 Create article schema at `/packages/db/src/schema/articles.ts`
-- [ ] T026 Create review schema at `/packages/db/src/schema/reviews.ts`
-- [ ] T027 Create notification schema at `/packages/db/src/schema/notifications.ts`
-- [ ] T028 Create audit_log schema at `/packages/db/src/schema/audit.ts`
+- [x] T023 Create order and order_item schemas at `/packages/db/src/schema/orders.ts`
+- [x] T024 Create payment schema at `/packages/db/src/schema/payments.ts`
+- [x] T025 Create article schema at `/packages/db/src/schema/articles.ts`
+- [x] T026 Create review schema at `/packages/db/src/schema/reviews.ts`
+- [x] T027 Create notification schema at `/packages/db/src/schema/notifications.ts`
+- [x] T028 Create audit_log schema at `/packages/db/src/schema/audit.ts`
 
 ### Database Setup
 
-- [ ] T029 Create schema index file exporting all tables at `/packages/db/src/schema/index.ts`
-- [ ] T030 Create Drizzle client factory at `/packages/db/src/client.ts`
-- [ ] T031 Create drizzle.config.ts at `/packages/db/drizzle.config.ts`
-- [ ] T032 Generate and run initial migration
+- [x] T029 Create schema index file exporting all tables at `/packages/db/src/schema/index.ts`
+- [x] T030 Create Drizzle client factory at `/packages/db/src/client.ts`
+- [x] T031 Create drizzle.config.ts at `/packages/db/drizzle.config.ts`
+- [x] T032 Generate and run initial migration
 
 ---
 
@@ -147,28 +147,28 @@ This delivers:
 
 ### Backend Core
 
-- [ ] T033 Create Elysia app entry point at `/apps/backend/src/index.ts`
-- [ ] T034 Create Elysia app with plugins at `/apps/backend/src/app.ts`
-- [ ] T035 [P] Configure Better Auth with Drizzle adapter at `/apps/backend/src/lib/auth.ts`
-- [ ] T036 [P] Create Drizzle database client at `/apps/backend/src/lib/db.ts`
-- [ ] T037 [P] Create Redis client at `/apps/backend/src/lib/redis.ts`
-- [ ] T038 [P] Create Typesense client at `/apps/backend/src/lib/typesense.ts`
+- [x] T033 Create Elysia app entry point at `/apps/backend/src/index.ts`
+- [x] T034 Create Elysia app with plugins at `/apps/backend/src/app.ts`
+- [x] T035 [P] Configure Better Auth with Drizzle adapter at `/apps/backend/src/lib/auth.ts`
+- [x] T036 [P] Create Drizzle database client at `/apps/backend/src/lib/db.ts`
+- [x] T037 [P] Create Redis client at `/apps/backend/src/lib/redis.ts`
+- [x] T038 [P] Create Typesense client at `/apps/backend/src/lib/typesense.ts`
 
 ### Middleware
 
-- [ ] T039 Create auth middleware at `/apps/backend/src/middleware/auth.ts`
-- [ ] T040 Create tenant middleware at `/apps/backend/src/middleware/tenant.ts`
-- [ ] T041 Create audit middleware at `/apps/backend/src/middleware/audit.ts`
+- [x] T039 Create auth middleware at `/apps/backend/src/middleware/auth.ts`
+- [x] T040 Create tenant middleware at `/apps/backend/src/middleware/tenant.ts`
+- [x] T041 Create audit middleware at `/apps/backend/src/middleware/audit.ts`
 
 ### Shared Package
 
-- [ ] T042 Create shared constants (roles, status enums) at `/packages/shared/src/constants/index.ts`
-- [ ] T043 Export drizzle-typebox schemas at `/packages/shared/src/schemas/index.ts`
+- [x] T042 Create shared constants (roles, status enums) at `/packages/shared/src/constants/index.ts`
+- [x] T043 Export drizzle-typebox schemas at `/packages/shared/src/schemas/index.ts`
 
 ### Frontend Core
 
-- [ ] T044 Create Eden Treaty API client at `/apps/web/src/lib/api.ts`
-- [ ] T045 Create auth context/store at `/apps/web/src/stores/auth.ts`
+- [x] T044 Create Eden Treaty API client at `/apps/web/src/lib/api.ts`
+- [x] T045 Create auth context/store at `/apps/web/src/stores/auth.ts`
 
 ---
 
@@ -180,37 +180,37 @@ This delivers:
 
 ### Backend Services
 
-- [ ] T046 [P] [US1] Create doctor.service.ts with search and profile methods at `/apps/backend/src/services/doctor.service.ts`
-- [ ] T047 [P] [US1] Create search.service.ts with Typesense indexing at `/apps/backend/src/services/search.service.ts`
-- [ ] T048 [P] [US1] Create appointment.service.ts with booking logic at `/apps/backend/src/services/appointment.service.ts`
-- [ ] T049 [P] [US1] Create payment.service.ts with Paystack integration at `/apps/backend/src/services/payment.service.ts`
-- [ ] T050 [P] [US1] Create notification.service.ts at `/apps/backend/src/services/notification.service.ts`
+- [x] T046 [P] [US1] Create doctor.service.ts with search and profile methods at `/apps/backend/src/services/doctor.service.ts`
+- [x] T047 [P] [US1] Create search.service.ts with Typesense indexing at `/apps/backend/src/services/search.service.ts`
+- [x] T048 [P] [US1] Create appointment.service.ts with booking logic at `/apps/backend/src/services/appointment.service.ts`
+- [x] T049 [P] [US1] Create payment.service.ts with Paystack integration at `/apps/backend/src/services/payment.service.ts`
+- [x] T050 [P] [US1] Create notification.service.ts at `/apps/backend/src/services/notification.service.ts`
 
 ### Backend Routes
 
-- [ ] T051 [US1] Create auth routes (register, login, logout, me) at `/apps/backend/src/routes/v1/auth.ts`
-- [ ] T052 [US1] Create doctors routes (search, get profile, availability) at `/apps/backend/src/routes/v1/doctors.ts`
-- [ ] T053 [US1] Create appointments routes (book, list, get, cancel) at `/apps/backend/src/routes/v1/appointments.ts`
-- [ ] T054 [US1] Create payments routes (initialize, webhook) at `/apps/backend/src/routes/v1/payments.ts`
-- [ ] T055 [US1] Create v1 routes index at `/apps/backend/src/routes/v1/index.ts`
+- [x] T051 [US1] Create auth routes (register, login, logout, me) at `/apps/backend/src/routes/v1/auth.ts`
+- [x] T052 [US1] Create doctors routes (search, get profile, availability) at `/apps/backend/src/routes/v1/doctors.ts`
+- [x] T053 [US1] Create appointments routes (book, list, get, cancel) at `/apps/backend/src/routes/v1/appointments.ts`
+- [x] T054 [US1] Create payments routes (initialize, webhook) at `/apps/backend/src/routes/v1/payments.ts`
+- [x] T055 [US1] Create v1 routes index at `/apps/backend/src/routes/v1/index.ts`
 
 ### Paystack Integration
 
-- [ ] T056 [US1] Create Paystack client at `/apps/backend/src/lib/paystack.ts`
+- [x] T056 [US1] Create Paystack client at `/apps/backend/src/lib/paystack.ts`
 
 ### Frontend Pages
 
-- [ ] T057 [P] [US1] Create doctor search page at `/apps/web/src/routes/doctors/index.tsx`
-- [ ] T058 [P] [US1] Create doctor profile page at `/apps/web/src/routes/doctors/[id].tsx`
-- [ ] T059 [P] [US1] Create booking page at `/apps/web/src/routes/appointments/book.tsx`
-- [ ] T060 [US1] Create appointment confirmation page at `/apps/web/src/routes/appointments/[id].tsx`
+- [x] T057 [P] [US1] Create doctor search page at `/apps/web/src/routes/doctors/index.tsx`
+- [x] T058 [P] [US1] Create doctor profile page at `/apps/web/src/routes/doctors/[id].tsx`
+- [x] T059 [P] [US1] Create booking page at `/apps/web/src/routes/appointments/book.tsx`
+- [x] T060 [US1] Create appointment confirmation page at `/apps/web/src/routes/appointments/[id].tsx`
 
 ### Frontend Components
 
-- [ ] T061 [P] [US1] Create DoctorCard component at `/apps/web/src/components/features/DoctorCard.tsx`
-- [ ] T062 [P] [US1] Create SearchFilters component at `/apps/web/src/components/features/SearchFilters.tsx`
-- [ ] T063 [P] [US1] Create AvailabilityCalendar component at `/apps/web/src/components/features/AvailabilityCalendar.tsx`
-- [ ] T064 [US1] Create PaymentModal component at `/apps/web/src/components/features/PaymentModal.tsx`
+- [x] T061 [P] [US1] Create DoctorCard component at `/apps/web/src/components/features/DoctorCard.tsx`
+- [x] T062 [P] [US1] Create SearchFilters component at `/apps/web/src/components/features/SearchFilters.tsx`
+- [x] T063 [P] [US1] Create AvailabilityCalendar component at `/apps/web/src/components/features/AvailabilityCalendar.tsx`
+- [x] T064 [US1] Create PaymentModal component at `/apps/web/src/components/features/PaymentModal.tsx`
 
 ---
 
@@ -223,33 +223,33 @@ This delivers:
 ### Backend Services
 
 - [ ] T065 [P] [US2] Add credential upload to doctor.service.ts at `/apps/backend/src/services/doctor.service.ts`
-- [ ] T066 [P] [US2] Create storage.service.ts for file uploads at `/apps/backend/src/services/storage.service.ts`
-- [ ] T067 [P] [US2] Create admin.service.ts with verification methods at `/apps/backend/src/services/admin.service.ts`
+- [x] T066 [P] [US2] Create storage.service.ts for file uploads at `/apps/backend/src/services/storage.service.ts`
+- [x] T067 [P] [US2] Create admin.service.ts with verification methods at `/apps/backend/src/services/admin.service.ts`
 
 ### Backend Routes
 
 - [ ] T068 [US2] Add doctor registration endpoint to auth routes at `/apps/backend/src/routes/v1/auth.ts`
 - [ ] T069 [US2] Add credential upload endpoint to doctors routes at `/apps/backend/src/routes/v1/doctors.ts`
-- [ ] T070 [US2] Create admin verification routes at `/apps/backend/src/routes/v1/admin/verification.ts`
+- [x] T070 [US2] Create admin verification routes at `/apps/backend/src/routes/v1/admin/verification.ts`
 
 ### File Storage
 
-- [ ] T071 [US2] Create storage abstraction at `/apps/backend/src/lib/storage.ts`
+- [x] T071 [US2] Create storage abstraction at `/apps/backend/src/lib/storage.ts`
 
 ### Frontend - Doctor Registration
 
-- [ ] T072 [P] [US2] Create doctor registration page at `/apps/web/src/routes/auth/register-doctor.tsx`
-- [ ] T073 [P] [US2] Create credential upload page at `/apps/web/src/routes/doctor/credentials.tsx`
-- [ ] T074 [P] [US2] Create doctor dashboard page at `/apps/web/src/routes/doctor/index.tsx`
+- [x] T072 [P] [US2] Create doctor registration page at `/apps/web/src/routes/auth/register-doctor.tsx`
+- [x] T073 [P] [US2] Create credential upload page at `/apps/web/src/routes/doctor/credentials.tsx`
+- [x] T074 [P] [US2] Create doctor dashboard page at `/apps/web/src/routes/doctor/index.tsx`
 
 ### Frontend - Admin
 
-- [ ] T075 [P] [US2] Create admin pending verifications page at `/apps/web/src/routes/admin/verifications.tsx`
-- [ ] T076 [US2] Create verification detail page at `/apps/web/src/routes/admin/verifications/[id].tsx`
+- [x] T075 [P] [US2] Create admin pending verifications page at `/apps/web/src/routes/admin/verifications.tsx`
+- [x] T076 [US2] Create verification detail page at `/apps/web/src/routes/admin/verifications/[id].tsx`
 
 ### Typesense Sync
 
-- [ ] T077 [US2] Add Typesense indexing on doctor verification approval
+- [x] T077 [US2] Add Typesense indexing on doctor verification approval (in admin.service.ts)
 
 ---
 
@@ -261,27 +261,27 @@ This delivers:
 
 ### Backend Services
 
-- [ ] T078 [P] [US3] Create consultation.service.ts at `/apps/backend/src/services/consultation.service.ts`
-- [ ] T079 [P] [US3] Create 100ms integration at `/apps/backend/src/lib/hms.ts`
+- [x] T078 [P] [US3] Create consultation.service.ts at `/apps/backend/src/services/consultation.service.ts`
+- [x] T079 [P] [US3] Create 100ms integration at `/apps/backend/src/lib/hms.ts`
 
 ### Backend Routes
 
-- [ ] T080 [US3] Create consultations routes (join, end, get, update notes) at `/apps/backend/src/routes/v1/consultations.ts`
+- [x] T080 [US3] Create consultations routes (join, end, get, update notes) at `/apps/backend/src/routes/v1/consultations.ts`
 
 ### Frontend Pages
 
-- [ ] T081 [P] [US3] Create video call page at `/apps/web/src/routes/consultations/[id]/call.tsx`
-- [ ] T082 [P] [US3] Create consultation summary page at `/apps/web/src/routes/consultations/[id]/index.tsx`
+- [x] T081 [P] [US3] Create video call page at `/apps/web/src/routes/consultations/[id]/call.tsx`
+- [x] T082 [P] [US3] Create consultation summary page at `/apps/web/src/routes/consultations/[id]/index.tsx`
 
 ### Frontend Components
 
-- [ ] T083 [P] [US3] Create VideoRoom component with 100ms SDK at `/apps/web/src/components/features/VideoRoom.tsx`
-- [ ] T084 [US3] Create ConsultationNotes component at `/apps/web/src/components/features/ConsultationNotes.tsx`
+- [x] T083 [P] [US3] Create VideoRoom component with 100ms SDK at `/apps/web/src/components/features/VideoRoom.tsx`
+- [x] T084 [US3] Create ConsultationNotes component at `/apps/web/src/components/features/ConsultationNotes.tsx`
 
 ### Real-time
 
-- [ ] T085 [US3] Setup WebSocket for call status updates at `/apps/backend/src/lib/ws.ts`
-- [ ] T086 [US3] Add appointment reminder notifications
+- [x] T085 [US3] Setup WebSocket for call status updates at `/apps/backend/src/lib/ws.ts`
+- [x] T086 [US3] Add appointment reminder notifications at `/apps/backend/src/services/reminder.service.ts`
 
 ---
 
@@ -293,21 +293,21 @@ This delivers:
 
 ### Backend Services
 
-- [ ] T087 [P] [US4] Create record.service.ts at `/apps/backend/src/services/record.service.ts`
+- [x] T087 [P] [US4] Create record.service.ts at `/apps/backend/src/services/record.service.ts`
 
 ### Backend Routes
 
-- [ ] T088 [US4] Create records routes (upload, list, get, delete) at `/apps/backend/src/routes/v1/records.ts`
+- [x] T088 [US4] Create records routes (upload, list, get, delete) at `/apps/backend/src/routes/v1/records.ts`
 
 ### Frontend Pages
 
-- [ ] T089 [P] [US4] Create medical records page at `/apps/web/src/routes/patient/records/index.tsx`
-- [ ] T090 [P] [US4] Create record detail page at `/apps/web/src/routes/patient/records/[id].tsx`
+- [x] T089 [P] [US4] Create medical records page at `/apps/web/src/routes/patient/records/index.tsx`
+- [x] T090 [P] [US4] Create record detail page at `/apps/web/src/routes/patient/records/[id].tsx`
 
 ### Frontend Components
 
-- [ ] T091 [P] [US4] Create FileUpload component at `/apps/web/src/components/features/FileUpload.tsx`
-- [ ] T092 [US4] Create DocumentViewer component at `/apps/web/src/components/features/DocumentViewer.tsx`
+- [x] T091 [P] [US4] Create FileUpload component at `/apps/web/src/components/features/FileUpload.tsx`
+- [x] T092 [US4] Create DocumentViewer component at `/apps/web/src/components/features/DocumentViewer.tsx`
 
 ### Access Control
 
@@ -324,21 +324,21 @@ This delivers:
 
 ### Backend Services
 
-- [ ] T095 [P] [US5] Create prescription.service.ts at `/apps/backend/src/services/prescription.service.ts`
+- [x] T095 [P] [US5] Create prescription.service.ts at `/apps/backend/src/services/prescription.service.ts`
 
 ### Backend Routes
 
-- [ ] T096 [US5] Create prescriptions routes (create, get, list) at `/apps/backend/src/routes/v1/prescriptions.ts`
+- [x] T096 [US5] Create prescriptions routes (create, get, list) at `/apps/backend/src/routes/v1/prescriptions.ts`
 
 ### Frontend Pages
 
-- [ ] T097 [P] [US5] Create prescription form page (doctor) at `/apps/web/src/routes/doctor/prescriptions/new.tsx`
-- [ ] T098 [P] [US5] Create prescription view page (patient) at `/apps/web/src/routes/patient/prescriptions/[id].tsx`
+- [x] T097 [P] [US5] Create prescription form page (doctor) at `/apps/web/src/routes/doctor/prescriptions/new.tsx`
+- [x] T098 [P] [US5] Create prescription view page (patient) at `/apps/web/src/routes/patient/prescriptions/[id].tsx`
 
 ### Frontend Components
 
-- [ ] T099 [P] [US5] Create PrescriptionForm component at `/apps/web/src/components/features/PrescriptionForm.tsx`
-- [ ] T100 [US5] Create PrescriptionCard component at `/apps/web/src/components/features/PrescriptionCard.tsx`
+- [x] T099 [P] [US5] Create PrescriptionForm component at `/apps/web/src/components/features/PrescriptionForm.tsx`
+- [x] T100 [US5] Create PrescriptionCard component at `/apps/web/src/components/features/PrescriptionCard.tsx`
 
 ### Integration
 
@@ -355,22 +355,22 @@ This delivers:
 
 ### Backend Services
 
-- [ ] T103 [P] [US6] Create order.service.ts at `/apps/backend/src/services/order.service.ts`
+- [x] T103 [P] [US6] Create order.service.ts at `/apps/backend/src/services/order.service.ts`
 
 ### Backend Routes
 
-- [ ] T104 [US6] Create orders routes (create, list, get, update status) at `/apps/backend/src/routes/v1/orders.ts`
+- [x] T104 [US6] Create orders routes (create, list, get, update status) at `/apps/backend/src/routes/v1/orders.ts`
 
 ### Frontend Pages
 
-- [ ] T105 [P] [US6] Create order checkout page at `/apps/web/src/routes/patient/orders/checkout.tsx`
-- [ ] T106 [P] [US6] Create order list page at `/apps/web/src/routes/patient/orders/index.tsx`
-- [ ] T107 [P] [US6] Create order detail page at `/apps/web/src/routes/patient/orders/[id].tsx`
+- [x] T105 [P] [US6] Create order checkout page at `/apps/web/src/routes/patient/orders/checkout.tsx`
+- [x] T106 [P] [US6] Create order list page at `/apps/web/src/routes/patient/orders/index.tsx`
+- [x] T107 [P] [US6] Create order detail page at `/apps/web/src/routes/patient/orders/[id].tsx`
 
 ### Frontend Components
 
-- [ ] T108 [P] [US6] Create OrderCard component at `/apps/web/src/components/features/OrderCard.tsx`
-- [ ] T109 [US6] Create OrderStatusTracker component at `/apps/web/src/components/features/OrderStatusTracker.tsx`
+- [x] T108 [P] [US6] Create OrderCard component at `/apps/web/src/components/features/OrderCard.tsx`
+- [x] T109 [US6] Create OrderStatusTracker component at `/apps/web/src/components/features/OrderStatusTracker.tsx`
 
 ### Payment Integration
 
@@ -388,7 +388,7 @@ This delivers:
 
 ### Backend Services
 
-- [ ] T113 [P] [US7] Create revenue.service.ts at `/apps/backend/src/services/revenue.service.ts`
+- [x] T113 [P] [US7] Create revenue.service.ts at `/apps/backend/src/services/revenue.service.ts`
 
 ### Backend Routes
 
@@ -396,13 +396,13 @@ This delivers:
 
 ### Frontend Pages
 
-- [ ] T115 [P] [US7] Create revenue dashboard page at `/apps/web/src/routes/doctor/revenue.tsx`
+- [x] T115 [P] [US7] Create revenue dashboard page at `/apps/web/src/routes/doctor/revenue.tsx`
 
 ### Frontend Components
 
-- [ ] T116 [P] [US7] Create RevenueCard component at `/apps/web/src/components/features/RevenueCard.tsx`
-- [ ] T117 [US7] Create TransactionHistory component at `/apps/web/src/components/features/TransactionHistory.tsx`
-- [ ] T118 [US7] Create PayoutRequestModal component at `/apps/web/src/components/features/PayoutRequestModal.tsx`
+- [x] T116 [P] [US7] Create RevenueCard component at `/apps/web/src/components/features/RevenueCard.tsx`
+- [x] T117 [US7] Create TransactionHistory component at `/apps/web/src/components/features/TransactionHistory.tsx`
+- [x] T118 [US7] Create PayoutRequestModal component at `/apps/web/src/components/features/PayoutRequestModal.tsx`
 
 ---
 
@@ -414,22 +414,22 @@ This delivers:
 
 ### Backend Services
 
-- [ ] T119 [P] [US8] Create article.service.ts at `/apps/backend/src/services/article.service.ts`
+- [x] T119 [P] [US8] Create article.service.ts at `/apps/backend/src/services/article.service.ts`
 
 ### Backend Routes
 
-- [ ] T120 [US8] Create articles routes (list, get, create, update, delete) at `/apps/backend/src/routes/v1/articles.ts`
+- [x] T120 [US8] Create articles routes (list, get, create, update, delete) at `/apps/backend/src/routes/v1/articles.ts`
 
 ### Frontend Pages
 
-- [ ] T121 [P] [US8] Create articles listing page at `/apps/web/src/routes/articles/index.tsx`
-- [ ] T122 [P] [US8] Create article detail page at `/apps/web/src/routes/articles/[slug].tsx`
-- [ ] T123 [US8] Create admin article editor page at `/apps/web/src/routes/admin/articles/editor.tsx`
+- [x] T121 [P] [US8] Create articles listing page at `/apps/web/src/routes/articles/index.tsx`
+- [x] T122 [P] [US8] Create article detail page at `/apps/web/src/routes/articles/[slug].tsx`
+- [x] T123 [US8] Create admin article editor page at `/apps/web/src/routes/admin/articles/editor.tsx`
 
 ### Frontend Components
 
-- [ ] T124 [P] [US8] Create ArticleCard component at `/apps/web/src/components/features/ArticleCard.tsx`
-- [ ] T125 [US8] Create MarkdownEditor component at `/apps/web/src/components/features/MarkdownEditor.tsx`
+- [x] T124 [P] [US8] Create ArticleCard component at `/apps/web/src/components/features/ArticleCard.tsx`
+- [x] T125 [US8] Create MarkdownEditor component at `/apps/web/src/components/features/MarkdownEditor.tsx`
 
 ### Search Integration
 
@@ -445,23 +445,23 @@ This delivers:
 
 ### Backend Services
 
-- [ ] T127 [P] [US9] Create analytics.service.ts at `/apps/backend/src/services/analytics.service.ts`
+- [x] T127 [P] [US9] Create analytics.service.ts at `/apps/backend/src/services/analytics.service.ts`
 
 ### Backend Routes
 
-- [ ] T128 [US9] Create admin analytics routes at `/apps/backend/src/routes/v1/admin/analytics.ts`
-- [ ] T129 [US9] Create admin moderation routes at `/apps/backend/src/routes/v1/admin/moderation.ts`
+- [x] T128 [US9] Create admin analytics routes at `/apps/backend/src/routes/v1/admin/analytics.ts`
+- [x] T129 [US9] Create admin moderation routes at `/apps/backend/src/routes/v1/admin/moderation.ts`
 
 ### Frontend Pages
 
-- [ ] T130 [P] [US9] Create admin dashboard page at `/apps/web/src/routes/admin/index.tsx`
-- [ ] T131 [P] [US9] Create moderation page at `/apps/web/src/routes/admin/moderation.tsx`
+- [x] T130 [P] [US9] Create admin dashboard page at `/apps/web/src/routes/admin/index.tsx`
+- [x] T131 [P] [US9] Create moderation page at `/apps/web/src/routes/admin/moderation.tsx`
 
 ### Frontend Components
 
-- [ ] T132 [P] [US9] Create MetricCard component at `/apps/web/src/components/features/MetricCard.tsx`
-- [ ] T133 [US9] Create AnalyticsChart component at `/apps/web/src/components/features/AnalyticsChart.tsx`
-- [ ] T134 [US9] Create ModerationQueue component at `/apps/web/src/components/features/ModerationQueue.tsx`
+- [x] T132 [P] [US9] Create MetricCard component at `/apps/web/src/components/features/MetricCard.tsx`
+- [x] T133 [US9] Create AnalyticsChart component at `/apps/web/src/components/features/AnalyticsChart.tsx`
+- [x] T134 [US9] Create ModerationQueue component at `/apps/web/src/components/features/ModerationQueue.tsx`
 
 ---
 
@@ -473,23 +473,23 @@ This delivers:
 
 ### Backend Services
 
-- [ ] T135 [P] [US10] Create review.service.ts at `/apps/backend/src/services/review.service.ts`
+- [x] T135 [P] [US10] Create review.service.ts at `/apps/backend/src/services/review.service.ts`
 
 ### Backend Routes
 
-- [ ] T136 [US10] Create reviews routes (create, list, moderate) at `/apps/backend/src/routes/v1/reviews.ts`
+- [x] T136 [US10] Create reviews routes (create, list, moderate) at `/apps/backend/src/routes/v1/reviews.ts`
 
 ### Frontend Components
 
-- [ ] T137 [P] [US10] Create ReviewForm component at `/apps/web/src/components/features/ReviewForm.tsx`
-- [ ] T138 [P] [US10] Create ReviewList component at `/apps/web/src/components/features/ReviewList.tsx`
-- [ ] T139 [US10] Create StarRating component at `/apps/web/src/components/features/StarRating.tsx`
+- [x] T137 [P] [US10] Create ReviewForm component at `/apps/web/src/components/features/ReviewForm.tsx`
+- [x] T138 [P] [US10] Create ReviewList component at `/apps/web/src/components/features/ReviewList.tsx`
+- [x] T139 [US10] Create StarRating component at `/apps/web/src/components/features/StarRating.tsx`
 
 ### Integration
 
-- [ ] T140 [US10] Add reviews to doctor profile page
-- [ ] T141 [US10] Update doctor average rating on new review
-- [ ] T142 [US10] Add review moderation to admin panel
+- [x] T140 [US10] Add reviews to doctor profile page
+- [x] T141 [US10] Update doctor average rating on new review
+- [x] T142 [US10] Add review moderation to admin panel
 
 ---
 
@@ -499,10 +499,10 @@ This delivers:
 
 ### Testing
 
-- [ ] T143 [P] Setup Playwright e2e test configuration at `/apps/web/playwright.config.ts`
-- [ ] T144 [P] Create e2e test for patient booking flow at `/apps/web/tests/e2e/booking.spec.ts`
-- [ ] T145 [P] Create e2e test for doctor onboarding flow at `/apps/web/tests/e2e/onboarding.spec.ts`
-- [ ] T146 Create e2e test for consultation flow at `/apps/web/tests/e2e/consultation.spec.ts`
+- [x] T143 [P] Setup Playwright e2e test configuration at `/apps/web/playwright.config.ts`
+- [x] T144 [P] Create e2e test for patient booking flow at `/apps/web/tests/e2e/booking.spec.ts`
+- [x] T145 [P] Create e2e test for doctor onboarding flow at `/apps/web/tests/e2e/onboarding.spec.ts`
+- [x] T146 Create e2e test for consultation flow at `/apps/web/tests/e2e/consultation.spec.ts`
 
 ### Performance
 
@@ -512,14 +512,14 @@ This delivers:
 
 ### Documentation
 
-- [ ] T150 [P] Update README with setup instructions at `/README.md`
-- [ ] T151 [P] Generate OpenAPI documentation from Elysia at `/apps/backend/src/app.ts`
-- [ ] T152 Create API usage examples at `/docs/api-examples.md`
+- [x] T150 [P] Update README with setup instructions at `/README.md`
+- [x] T151 [P] Generate OpenAPI documentation from Elysia at `/apps/backend/src/app.ts`
+- [x] T152 Create API usage examples at `/docs/api-examples.md`
 
 ### PWA & Mobile
 
-- [ ] T153 Configure SolidStart PWA at `/apps/web/app.config.ts`
-- [ ] T154 Add service worker for offline support at `/apps/web/public/sw.js`
+- [x] T153 Configure SolidStart PWA at `/apps/web/app.config.ts`
+- [x] T154 Add service worker for offline support at `/apps/web/public/sw.js`
 
 ---
 

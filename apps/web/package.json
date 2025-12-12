@@ -1,0 +1,31 @@
+{
+  "name": "web",
+  "version": "0.0.1",
+  "type": "module",
+  "scripts": {
+    "dev": "vinxi dev",
+    "build": "vinxi build",
+    "start": "vinxi start",
+    "test": "bun test",
+    "test:e2e": "playwright test",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@elysiajs/eden": "^1.4.0",
+    "@precta/shared": "workspace:*",
+    "@solidjs/meta": "^0.29.4",
+    "@solidjs/router": "^0.15.0",
+    "@solidjs/start": "^1.1.0",
+    "@tailwindcss/vite": "^4.1.17",
+    "daisyui": "^5.5.8",
+    "lucide-solid": "^0.561.0",
+    "solid-js": "^1.9.5",
+    "tailwindcss": "^4.1.17",
+    "vinxi": "^0.5.7"
+  },
+  "devDependencies": {
+    "@types/bun": "^1.3.4",
+    "@playwright/test": "^1.52.0",
+    "typescript": "^5.9.3"
+  }
+}

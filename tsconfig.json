@@ -9,11 +9,25 @@
     "jsxImportSource": "solid-js",
     "allowJs": true,
     "strict": true,
+    "strictNullChecks": true,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
     "noEmit": true,
-    "types": ["vinxi/types/client"],
     "isolatedModules": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "baseUrl": ".",
     "paths": {
-      "~/*": ["./src/*"]
+      "@precta/db": ["./packages/db/src"],
+      "@precta/db/*": ["./packages/db/src/*"],
+      "@precta/shared": ["./packages/shared/src"],
+      "@precta/shared/*": ["./packages/shared/src/*"]
     }
-  }
+  },
+  "exclude": ["node_modules", "**/dist/**", "**/node_modules/**"]
 }

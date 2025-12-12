@@ -1,0 +1,17 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "types": ["@types/bun"],
+    "paths": {
+      "@/*": ["./src/*"],
+      "@precta/db": ["../../packages/db/src"],
+      "@precta/db/*": ["../../packages/db/src/*"],
+      "@precta/shared": ["../../packages/shared/src"],
+      "@precta/shared/*": ["../../packages/shared/src/*"]
+    }
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist"]
+}
