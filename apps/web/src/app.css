@@ -1,0 +1,132 @@
+/* Import fonts first */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+@import "tailwindcss";
+@plugin "daisyui" {
+  themes: light --default, dark --prefersdark, emerald;
+}
+
+/* Custom Healthcare Theme Overrides */
+@theme {
+  /* Primary - Trustworthy Medical Blue */
+  --color-primary: #0891b2;
+  --color-primary-content: #ffffff;
+  
+  /* Secondary - Calming Teal */
+  --color-secondary: #14b8a6;
+  --color-secondary-content: #ffffff;
+  
+  /* Accent - Warm Orange for CTAs */
+  --color-accent: #f97316;
+  --color-accent-content: #ffffff;
+  
+  /* Neutral tones */
+  --color-neutral: #1f2937;
+  --color-neutral-content: #f3f4f6;
+  
+  /* Base colors */
+  --color-base-100: #ffffff;
+  --color-base-200: #f8fafc;
+  --color-base-300: #e2e8f0;
+  --color-base-content: #1e293b;
+  
+  /* Semantic colors */
+  --color-success: #22c55e;
+  --color-warning: #eab308;
+  --color-error: #ef4444;
+  --color-info: #3b82f6;
+  
+  /* Typography */
+  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  
+  /* Border radius - softer, more modern */
+  --radius-box: 1rem;
+  --radius-btn: 0.75rem;
+  --radius-badge: 0.5rem;
+}
+
+/* Global styles */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom utility classes */
+.gradient-primary {
+  background: linear-gradient(135deg, #0891b2 0%, #14b8a6 100%);
+}
+
+.gradient-hero {
+  background: linear-gradient(135deg, #0891b2 0%, #0e7490 50%, #14b8a6 100%);
+}
+
+.text-gradient {
+  background: linear-gradient(135deg, #0891b2 0%, #14b8a6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Glass morphism effect */
+.glass {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* Card hover effects */
+.card-hover {
+  transition: all 0.3s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+/* Smooth transitions */
+.btn {
+  transition: all 0.2s ease;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Dark mode scrollbar */
+[data-theme="dark"] ::-webkit-scrollbar-track {
+  background: #1e293b;
+}
+
+[data-theme="dark"] ::-webkit-scrollbar-thumb {
+  background: #475569;
+}
+
+[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
+  background: #64748b;
+}
+
+/* Dark mode glass effect */
+[data-theme="dark"] .glass {
+  background: rgba(30, 41, 59, 0.8);
+}

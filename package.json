@@ -1,24 +1,30 @@
 {
-  "name": "example-basic",
+  "name": "precta",
+  "version": "0.0.1",
+  "private": true,
   "type": "module",
+  "workspaces": ["apps/*", "packages/*"],
   "scripts": {
-    "dev": "vinxi dev",
-    "build": "vinxi build",
-    "start": "vinxi start",
-    "version": "vinxi version"
-  },
-  "dependencies": {
-    "@solidjs/meta": "^0.29.4",
-    "@solidjs/router": "^0.15.0",
-    "@solidjs/start": "^1.1.0",
-    "@tailwindcss/vite": "^4.1.17",
-    "@tanstack/solid-router": "^1.140.0",
-    "daisyui": "^5.5.8",
-    "solid-js": "^1.9.5",
-    "tailwindcss": "^4.1.17",
-    "vinxi": "^0.5.7"
+    "dev": "bun run --parallel dev:backend dev:web",
+    "dev:backend": "bun run --filter backend dev",
+    "dev:web": "bun run --filter web dev",
+    "build": "bun run --filter '@precta/*' build && bun run --filter backend build && bun run --filter web build",
+    "test": "bun run --filter '*' test",
+    "lint": "bun run --filter '*' lint",
+    "typecheck": "bun run --filter '*' typecheck",
+    "db:generate": "bun run --filter @precta/db db:generate",
+    "db:migrate": "bun run --filter @precta/db db:migrate",
+    "db:push": "bun run --filter @precta/db db:push",
+    "db:studio": "bun run --filter @precta/db db:studio",
+    "db:seed": "bun run --filter @precta/db db:seed",
+    "clean": "rm -rf node_modules apps/*/node_modules packages/*/node_modules bun.lock"
   },
   "engines": {
-    "node": ">=22"
+    "node": ">=22",
+    "bun": ">=1.1.0"
+  },
+  "devDependencies": {
+    "@types/bun": "^1.3.4",
+    "typescript": "^5.9.3"
   }
 }
