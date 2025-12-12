@@ -4,7 +4,8 @@
  */
 
 import { Title } from "@solidjs/meta";
-import { createSignal, createEffect, Show, For } from "solid-js";
+import { createSignal, createEffect, Show, For, Component } from "solid-js";
+import { Star, FileText, AlertTriangle, CheckCircle, Search, Loader2 } from "lucide-solid";
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
 
@@ -35,10 +36,10 @@ export default function ModerationPage() {
       const url = filter()
         ? `${API_URL}/api/v1/admin/moderation?type=${filter()}`
         : `${API_URL}/api/v1/admin/moderation`;
-      
+
       const response = await fetch(url, { credentials: 'include' });
       const data = await response.json();
-      
+
       if (data.success) {
         setItems(data.data);
       }
@@ -85,7 +86,7 @@ export default function ModerationPage() {
         }
       );
       const data = await response.json();
-      
+
       if (data.success) {
         setItems(prev => prev.filter(item => item.id !== id));
       }
@@ -107,10 +108,10 @@ export default function ModerationPage() {
     });
   };
 
-  const typeLabels: Record<ModerationItemType, { label: string; icon: string; color: string }> = {
-    review: { label: 'Review', icon: '⭐', color: 'badge-warning' },
-    doctor: { label: 'Doctor Verification', icon: '👨‍⚕️', color: 'badge-info' },
-    report: { label: 'Report', icon: '🚨', color: 'badge-error' },
+  const typeLabels: Record<ModerationItemType, { label: string; icon: Component; color: string }> = {
+    review: { label: 'Review', icon: Star, color: 'badge-warning' },
+    doctor: { label: 'Doctor Verification', icon: FileText, color: 'badge-info' },
+    report: { label: 'Report', icon: AlertTriangle, color: 'badge-error' },
   };
 
   const pendingCount = () => items().filter(i => i.status === 'pending').length;
@@ -144,22 +145,22 @@ export default function ModerationPage() {
               All
             </button>
             <button
-              class={`btn btn-sm ${filter() === 'review' ? 'btn-primary' : 'btn-ghost'}`}
+              class={`btn btn-sm ${filter() === 'review' ? 'btn-primary' : 'btn-ghost'} gap-2`}
               onClick={() => setFilter('review')}
             >
-              ⭐ Reviews
+              <Star class="w-4 h-4" /> Reviews
             </button>
             <button
-              class={`btn btn-sm ${filter() === 'doctor' ? 'btn-primary' : 'btn-ghost'}`}
+              class={`btn btn-sm ${filter() === 'doctor' ? 'btn-primary' : 'btn-ghost'} gap-2`}
               onClick={() => setFilter('doctor')}
             >
-              👨‍⚕️ Verifications
+              <FileText class="w-4 h-4" /> Verifications
             </button>
             <button
-              class={`btn btn-sm ${filter() === 'report' ? 'btn-primary' : 'btn-ghost'}`}
+              class={`btn btn-sm ${filter() === 'report' ? 'btn-primary' : 'btn-ghost'} gap-2`}
               onClick={() => setFilter('report')}
             >
-              🚨 Reports
+              <AlertTriangle class="w-4 h-4" /> Reports
             </button>
           </div>
 
@@ -173,7 +174,9 @@ export default function ModerationPage() {
           {/* Empty State */}
           <Show when={!loading() && items().length === 0}>
             <div class="bg-base-100 rounded-2xl border border-base-200 p-12 text-center">
-              <div class="text-5xl mb-4">✅</div>
+              <div class="w-20 h-20 bg-success/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                <CheckCircle class="w-10 h-10 text-success" />
+              </div>
               <h3 class="text-lg font-bold text-base-content mb-2">All Caught Up!</h3>
               <p class="text-base-content/60">No items pending moderation</p>
             </div>
@@ -183,57 +186,61 @@ export default function ModerationPage() {
           <Show when={!loading() && items().length > 0}>
             <div class="space-y-4">
               <For each={items()}>
-                {(item) => (
-                  <div class="bg-base-100 rounded-2xl border border-base-200 overflow-hidden">
-                    {/* Header */}
-                    <div class="p-4 border-b border-base-200 flex items-center justify-between">
-                      <div class="flex items-center gap-3">
-                        <span class={`badge ${typeLabels[item.type].color}`}>
-                          {typeLabels[item.type].icon} {typeLabels[item.type].label}
-                        </span>
+                {(item) => {
+                  const Icon = typeLabels[item.type].icon;
+                  return (
+                    <div class="bg-base-100 rounded-2xl border border-base-200 overflow-hidden">
+                      {/* Header */}
+                      <div class="p-4 border-b border-base-200 flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                          <span class={`badge ${typeLabels[item.type].color} gap-1 p-3`}>
+                            <Icon class="w-3.5 h-3.5" />
+                            {typeLabels[item.type].label}
+                          </span>
+                          <span class="text-sm text-base-content/60">
+                            {formatDate(item.submittedAt)}
+                          </span>
+                        </div>
                         <span class="text-sm text-base-content/60">
-                          {formatDate(item.submittedAt)}
+                          by {item.submittedBy}
                         </span>
                       </div>
-                      <span class="text-sm text-base-content/60">
-                        by {item.submittedBy}
-                      </span>
-                    </div>
 
-                    {/* Content */}
-                    <div class="p-6">
-                      <h3 class="font-bold text-base-content mb-2">{item.title}</h3>
-                      <p class="text-base-content/80 whitespace-pre-wrap">{item.content}</p>
-                    </div>
+                      {/* Content */}
+                      <div class="p-6">
+                        <h3 class="font-bold text-base-content mb-2">{item.title}</h3>
+                        <p class="text-base-content/80 whitespace-pre-wrap">{item.content}</p>
+                      </div>
 
-                    {/* Actions */}
-                    <div class="p-4 bg-base-200/30 border-t border-base-200 flex items-center justify-between">
-                      <button class="btn btn-ghost btn-sm">
-                        View Details
-                      </button>
-                      <div class="flex gap-2">
-                        <button
-                          class="btn btn-error btn-sm"
-                          onClick={() => handleAction(item.id, 'reject')}
-                          disabled={processing() === item.id}
-                        >
-                          <Show when={processing() === item.id} fallback="Reject">
-                            <span class="loading loading-spinner loading-xs"></span>
-                          </Show>
+                      {/* Actions */}
+                      <div class="p-4 bg-base-200/30 border-t border-base-200 flex items-center justify-between">
+                        <button class="btn btn-ghost btn-sm">
+                          View Details
                         </button>
-                        <button
-                          class="btn btn-success btn-sm"
-                          onClick={() => handleAction(item.id, 'approve')}
-                          disabled={processing() === item.id}
-                        >
-                          <Show when={processing() === item.id} fallback="Approve">
-                            <span class="loading loading-spinner loading-xs"></span>
-                          </Show>
-                        </button>
+                        <div class="flex gap-2">
+                          <button
+                            class="btn btn-error btn-sm"
+                            onClick={() => handleAction(item.id, 'reject')}
+                            disabled={processing() === item.id}
+                          >
+                            <Show when={processing() === item.id} fallback="Reject">
+                              <span class="loading loading-spinner loading-xs"></span>
+                            </Show>
+                          </button>
+                          <button
+                            class="btn btn-success btn-sm"
+                            onClick={() => handleAction(item.id, 'approve')}
+                            disabled={processing() === item.id}
+                          >
+                            <Show when={processing() === item.id} fallback="Approve">
+                              <span class="loading loading-spinner loading-xs"></span>
+                            </Show>
+                          </button>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                )}
+                  );
+                }}
               </For>
             </div>
           </Show>
