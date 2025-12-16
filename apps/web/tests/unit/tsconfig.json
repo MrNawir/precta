@@ -1,0 +1,22 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "types": ["bun-types"],
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "strict": true,
+    "skipLibCheck": true,
+    "noEmit": true,
+    "jsx": "preserve",
+    "jsxImportSource": "solid-js",
+    "baseUrl": "../..",
+    "paths": {
+      "~/*": ["./src/*"],
+      "@precta/shared": ["../../packages/shared/src"],
+      "@precta/shared/*": ["../../packages/shared/src/*"]
+    }
+  },
+  "include": ["./**/*.ts", "./**/*.tsx", "../../src/**/*.ts", "../../src/**/*.tsx"],
+  "exclude": ["node_modules"]
+}

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 40" fill="none">
+  <!-- 
+    Data Encryption Badge
+    End-to-end encryption indicator for sensitive health data.
+    Optimized: ~500 bytes, no external dependencies.
+  -->
+  <rect width="120" height="40" rx="6" fill="#3B82F6" fill-opacity="0.1"/>
+  <!-- Shield with key -->
+  <path d="M18 10l-6 3v6c0 4.5 2.5 8.5 6 10 3.5-1.5 6-5.5 6-10v-6l-6-3z" stroke="#3B82F6" stroke-width="1.5" fill="none"/>
+  <circle cx="18" cy="19" r="2" stroke="#3B82F6" stroke-width="1.5"/>
+  <path d="M18 21v4" stroke="#3B82F6" stroke-width="1.5"/>
+  <text x="32" y="21" font-family="Inter, system-ui, sans-serif" font-size="9" font-weight="600" fill="#3B82F6">256-bit</text>
+  <text x="32" y="30" font-family="Inter, system-ui, sans-serif" font-size="9" fill="#64748B">Encrypted</text>
+</svg>

@@ -1,29 +1,58 @@
+/**
+ * Landing Page - Premium UI
+ * 
+ * Investor-ready landing experience per User Story 1.
+ * Features gradient hero, glassmorphic search, trust indicators,
+ * and animated bento grid.
+ * 
+ * Design decisions:
+ * - Light theme default for professional appeal
+ * - No emojis (FR-002) - Lucide icons throughout
+ * - Animations under 200ms (FR-003)
+ * - WCAG AA compliant
+ * 
+ * References:
+ * - Spec: /specs/003-premium-ui/spec.md#user-story-1
+ * - DaisyUI 5: https://daisyui.com/docs/
+ * 
+ * @module routes/index
+ */
+
 import { Title } from "@solidjs/meta";
 import { For, createSignal } from "solid-js";
 import {
   Video, MapPin, TestTube, Scissors,
   Baby, Brain, Stethoscope, Pill,
-  Search, Check, Shield, Activity,
-  Smartphone, ChevronRight, Star,
-  Calendar, Users, Building2
+  Search, Shield, Activity,
+  ChevronRight, Star,
+  Users, Building2, Heart, Clock
 } from "lucide-solid";
+
+// Premium UI Components
+import TrustPanel from "~/components/layout/TrustPanel";
+import FeatureGrid, { type FeatureItem } from "~/components/layout/FeatureGrid";
 
 export default function Home() {
   const [location, setLocation] = createSignal("Nairobi");
   const [searchQuery, setSearchQuery] = createSignal("");
 
-  // Main service cards - Optimized for Bento Grid
-  const mainServices = [
+  /**
+   * Main service cards for Bento Grid.
+   * Typed as FeatureItem[] for type safety with FeatureGrid component.
+   */
+  const mainServices: FeatureItem[] = [
     {
+      id: "consult",
       title: "Instant Video Consultation",
       description: "Connect with a specialist in 60 seconds",
       icon: Video,
       href: "/consult",
       image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=600&h=400&fit=crop",
-      span: "col-span-12 md:col-span-8 lg:col-span-6", // Large card
+      span: "col-span-12 md:col-span-8 lg:col-span-6",
       gradient: "from-primary/90 to-primary/70"
     },
     {
+      id: "doctors",
       title: "Find Doctors",
       description: "Book confirmed appointments",
       icon: MapPin,
@@ -33,6 +62,7 @@ export default function Home() {
       gradient: "from-secondary/90 to-secondary/70"
     },
     {
+      id: "lab-tests",
       title: "Lab Tests",
       description: "Home sample collection",
       icon: TestTube,
@@ -42,13 +72,14 @@ export default function Home() {
       gradient: "from-accent/90 to-accent/70"
     },
     {
+      id: "surgeries",
       title: "Surgeries",
       description: "Trusted surgical care",
       icon: Scissors,
       href: "/surgeries",
       image: "https://images.unsplash.com/photo-1551076805-e1869033e561?w=600&h=400&fit=crop",
       span: "col-span-12 md:col-span-4 lg:col-span-6",
-      gradient: "from-blue-600/90 to-blue-500/70"
+      gradient: "from-info/90 to-info/70"
     },
   ];
 
@@ -146,54 +177,15 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Trust Indicators */}
-          <div class="flex flex-wrap justify-center gap-8 md:gap-16 opacity-60 grayscale hover:grayscale-0 transition-all duration-500">
-            {/* Placeholders for partner logos - using text for now but styled properly */}
-            <div class="font-bold text-xl flex items-center gap-2"><Shield class="w-5 h-5" /> TRUSTED</div>
-            <div class="font-bold text-xl flex items-center gap-2"><Shield class="w-5 h-5" /> SECURE</div>
-            <div class="font-bold text-xl flex items-center gap-2"><Shield class="w-5 h-5" /> VERIFIED</div>
-          </div>
+          {/* Trust Indicators - Premium component with animated badges */}
+          <TrustPanel />
         </div>
       </section>
 
-      {/* Bento Grid Services */}
+      {/* Bento Grid Services - Premium FeatureGrid component */}
       <section class="py-16 bg-base-100">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div class="grid grid-cols-12 gap-6">
-            <For each={mainServices}>
-              {(service) => (
-                <a
-                  href={service.href}
-                  class={`group relative overflow-hidden rounded-[2rem] hover-lift ${service.span} h-64 md:h-80`}
-                >
-                  {/* Background Image */}
-                  <img
-                    src={service.image}
-                    alt={service.title}
-                    class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
-
-                  {/* Gradient Overlay */}
-                  <div class={`absolute inset-0 bg-gradient-to-t ${service.gradient} opacity-90 transition-opacity duration-300`}></div>
-
-                  {/* Content */}
-                  <div class="absolute inset-0 p-8 flex flex-col justify-between text-white">
-                    <div class="bg-white/20 backdrop-blur-md w-12 h-12 rounded-2xl flex items-center justify-center border border-white/30">
-                      <service.icon class="w-6 h-6 text-white" />
-                    </div>
-
-                    <div>
-                      <h3 class="text-2xl font-bold mb-2 group-hover:translate-x-1 transition-transform">{service.title}</h3>
-                      <p class="text-white/90 font-medium flex items-center gap-2">
-                        {service.description}
-                        <ChevronRight class="w-4 h-4 opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all" />
-                      </p>
-                    </div>
-                  </div>
-                </a>
-              )}
-            </For>
-          </div>
+          <FeatureGrid items={mainServices} />
         </div>
       </section>
 
@@ -268,7 +260,7 @@ export default function Home() {
             </div>
 
             <div class="flex-1 w-full relative">
-              <div class="absolute -inset-4 bg-gradient-to-r from-primary to-accent opacity-20 blur-3xl rounded-full"></div>
+              <div class="absolute -inset-4 bg-linear-to-r from-primary to-accent opacity-20 blur-3xl rounded-full"></div>
               <div class="glass-panel p-8 rounded-3xl relative">
                 <div class="flex items-center gap-4 mb-6">
                   <div class="w-12 h-12 rounded-full bg-base-200"></div>

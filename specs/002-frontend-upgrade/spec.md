@@ -13,7 +13,7 @@ The goal of this feature is to overhaul the existing frontend of the Precta plat
 
 ### 3.1. Visual Language
 - **Typography**: Verify `Inter` usage, ensure proper weights (light/regular/medium/semibold) for hierarchy.
-- **Color Palette**: Refine `Healthcare Blue` ans `Teal` to be deeper, richer. avoid neon/clashing tones.
+- **Color Palette**: Refine `Healthcare Blue` and `Teal` to be deeper, richer. Avoid neon/clashing tones.
 - **Glassmorphism**: Enhanced usage of blur and transparency for cards and overlays.
 - **Gradients**: Subtle, multi-stop gradients for backgrounds and text highlights.
 

@@ -4,5 +4,6 @@
 
 export * from './constants/index';
 export * from './schemas/index';
+export * from './theme/tokens';
 export * from './types/index';
 export * from './utils/index';
