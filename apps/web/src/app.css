@@ -1,50 +1,163 @@
-/* Import fonts first */
+/**
+ * Precta Premium UI - DaisyUI 5 + Tailwind CSS v4
+ * 
+ * Theme Architecture:
+ * - Light mode default (investor-grade, professional)
+ * - Dark mode fallback via prefers-color-scheme
+ * - OKLCH color format for P3 gamut support
+ * - Effect variables (--depth, --noise) for premium feel
+ * 
+ * References:
+ * - DaisyUI 5 Themes: https://daisyui.com/docs/themes/
+ * - DaisyUI 5 Release Notes: https://daisyui.com/docs/v5/
+ * - Tailwind CSS v4: https://tailwindcss.com/docs
+ */
+
+/* Import fonts with font-display: swap for CLS optimization (FR-001, Edge Case) */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
 
 @import "tailwindcss";
-@plugin "daisyui" {
-  themes: light --default, dark --prefersdark, emerald;
+
+/* DaisyUI base plugin - enables component classes */
+@plugin "daisyui";
+
+/**
+ * PRECTA LIGHT THEME (Default)
+ * 
+ * This is the primary investor-facing theme. Colors use OKLCH for:
+ * - Wider color gamut (P3 displays)
+ * - Perceptually uniform lightness
+ * - Better accessibility contrast calculations
+ * 
+ * Color rationale:
+ * - Primary: Deep trustworthy teal-blue (medical credibility)
+ * - Secondary: Sophisticated teal (complementary warmth)
+ * - Accent: Refined coral-orange (CTAs, attention)
+ * - Neutral: Slate-based (professional, readable)
+ */
+@plugin "daisyui/theme" {
+  name: "precta-light";
+  default: true;
+  prefersdark: false;
+  color-scheme: light;
+  
+  /* Base surfaces - clean, crisp white foundation */
+  --color-base-100: oklch(100% 0 0);           /* Pure white */
+  --color-base-200: oklch(97% 0.005 250);      /* Slight cool gray */
+  --color-base-300: oklch(93% 0.01 250);       /* Subtle border gray */
+  --color-base-content: oklch(15% 0.02 260);   /* Near-black for text */
+  
+  /* Primary - Deep Trustworthy Teal-Blue (medical credibility) */
+  --color-primary: oklch(45% 0.12 195);        /* Deep teal-blue */
+  --color-primary-content: oklch(98% 0.01 195);
+  
+  /* Secondary - Sophisticated Teal (complementary) */
+  --color-secondary: oklch(55% 0.14 175);      /* Vibrant teal */
+  --color-secondary-content: oklch(98% 0.01 175);
+  
+  /* Accent - Refined Coral-Orange (CTAs, investor attention) */
+  --color-accent: oklch(70% 0.18 45);          /* Warm coral */
+  --color-accent-content: oklch(98% 0.01 45);
+  
+  /* Neutral - Slate tones (professional, readable) */
+  --color-neutral: oklch(25% 0.02 260);        /* Dark slate */
+  --color-neutral-content: oklch(98% 0.01 260);
+  
+  /* Semantic colors - Clear status communication */
+  --color-info: oklch(60% 0.18 250);           /* Trustworthy blue */
+  --color-info-content: oklch(98% 0.01 250);
+  --color-success: oklch(65% 0.2 155);         /* Healthy green */
+  --color-success-content: oklch(98% 0.01 155);
+  --color-warning: oklch(80% 0.16 85);         /* Attention amber */
+  --color-warning-content: oklch(20% 0.05 85);
+  --color-error: oklch(60% 0.22 25);           /* Alert red */
+  --color-error-content: oklch(98% 0.01 25);
+  
+  /* Border radii - Modern, approachable curves */
+  --radius-selector: 0.75rem;                  /* Checkboxes, toggles */
+  --radius-field: 0.75rem;                     /* Inputs, buttons */
+  --radius-box: 1.25rem;                       /* Cards, modals */
+  
+  /* Size tokens - Consistent component heights */
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+  
+  /* Border width - Subtle definition */
+  --border: 1px;
+  
+  /* Effect variables - Premium depth and texture (DaisyUI 5 feature) */
+  --depth: 1;                                  /* Subtle shadows/depth */
+  --noise: 0;                                  /* Clean, no grain */
 }
 
-/* Custom Healthcare Theme Overrides */
+/**
+ * PRECTA DARK THEME (Fallback)
+ * 
+ * Activated via prefers-color-scheme: dark or manual toggle.
+ * Maintains brand consistency while reducing eye strain.
+ */
+@plugin "daisyui/theme" {
+  name: "precta-dark";
+  prefersdark: true;
+  color-scheme: dark;
+  
+  /* Base surfaces - Dark slate foundation */
+  --color-base-100: oklch(18% 0.02 260);       /* Deep slate */
+  --color-base-200: oklch(22% 0.02 260);       /* Elevated surface */
+  --color-base-300: oklch(28% 0.02 260);       /* Border/divider */
+  --color-base-content: oklch(95% 0.01 260);   /* Light text */
+  
+  /* Primary - Lighter teal for dark bg visibility */
+  --color-primary: oklch(55% 0.14 195);
+  --color-primary-content: oklch(98% 0.01 195);
+  
+  /* Secondary */
+  --color-secondary: oklch(60% 0.14 175);
+  --color-secondary-content: oklch(98% 0.01 175);
+  
+  /* Accent */
+  --color-accent: oklch(75% 0.16 45);
+  --color-accent-content: oklch(15% 0.05 45);
+  
+  /* Neutral */
+  --color-neutral: oklch(35% 0.02 260);
+  --color-neutral-content: oklch(95% 0.01 260);
+  
+  /* Semantic colors - Adjusted for dark backgrounds */
+  --color-info: oklch(65% 0.16 250);
+  --color-info-content: oklch(98% 0.01 250);
+  --color-success: oklch(70% 0.18 155);
+  --color-success-content: oklch(98% 0.01 155);
+  --color-warning: oklch(80% 0.14 85);
+  --color-warning-content: oklch(20% 0.05 85);
+  --color-error: oklch(65% 0.20 25);
+  --color-error-content: oklch(98% 0.01 25);
+  
+  /* Radii - Same as light for consistency */
+  --radius-selector: 0.75rem;
+  --radius-field: 0.75rem;
+  --radius-box: 1.25rem;
+  
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+  --border: 1px;
+  
+  /* Effects - Slightly more depth in dark mode */
+  --depth: 1;
+  --noise: 0;
+}
+
+/**
+ * TAILWIND THEME EXTENSIONS
+ * 
+ * Custom design tokens for Precta-specific utilities.
+ * These extend Tailwind's default theme with brand values.
+ */
 @theme {
-  /* Primary - Deep Trustworthy Blue */
-  --color-primary: #0F6674; /* Deeper Teal/Blue */
-  --color-primary-content: #ffffff;
-  
-  /* Secondary - Sophisticated Teal */
-  --color-secondary: #0D9488;
-  --color-secondary-content: #ffffff;
-  
-  /* Accent - Refined Coral */
-  --color-accent: #F97316;
-  --color-accent-content: #ffffff;
-  
-  /* Neutral tones - Slate based */
-  --color-neutral: #1e293b;
-  --color-neutral-content: #f8fafc;
-  
-  /* Base colors - Clean & crisp */
-  --color-base-100: #ffffff;
-  --color-base-200: #f1f5f9;
-  --color-base-300: #e2e8f0;
-  --color-base-content: #0f172a;
-  
-  /* Semantic colors */
-  --color-success: #10b981;
-  --color-warning: #f59e0b;
-  --color-error: #ef4444;
-  --color-info: #3b82f6;
-  
-  /* Typography */
+  /* Typography - Brand fonts */
   --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
   --font-heading: 'Outfit', ui-sans-serif, system-ui;
-  
-  /* Modern radii */
-  --radius-box: 1.25rem;
-  --radius-btn: 0.75rem;
-  --radius-badge: 0.5rem;
 }
 
 /* Global styles */
@@ -64,48 +177,84 @@ h1, h2, h3, h4, h5, h6 {
   letter-spacing: -0.025em;
 }
 
-/* Custom utility classes */
+/* ============================================================================
+ * CUSTOM UTILITY CLASSES
+ * 
+ * Premium design tokens for Precta's investor-grade UI.
+ * All animations respect prefers-reduced-motion (FR-003, Edge Case).
+ * ============================================================================ */
 
-/* Premium Gradients */
+/**
+ * PREMIUM GRADIENTS
+ * 
+ * Brand gradients using theme colors for consistency.
+ * Primary gradient: teal-blue direction for trust/credibility.
+ */
 .gradient-primary {
-  background: linear-gradient(135deg, #0F6674 0%, #0D9488 100%);
+  /* Primary to secondary gradient - used for CTAs and emphasis */
+  background: linear-gradient(135deg, oklch(45% 0.12 195) 0%, oklch(55% 0.14 175) 100%);
 }
 
 .gradient-hero {
-  background: radial-gradient(circle at top right, rgba(13, 148, 136, 0.1) 0%, transparent 40%),
-              radial-gradient(circle at bottom left, rgba(15, 102, 116, 0.1) 0%, transparent 40%),
-              linear-gradient(180deg, #ffffff 0%, #f1f5f9 100%);
+  /* Hero section background - subtle radial accents on light base
+   * Creates depth without overwhelming content (investor-grade aesthetic) */
+  background: 
+    radial-gradient(ellipse at top right, oklch(55% 0.14 175 / 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at bottom left, oklch(45% 0.12 195 / 0.08) 0%, transparent 50%),
+    linear-gradient(180deg, oklch(100% 0 0) 0%, oklch(97% 0.005 250) 100%);
 }
-[data-theme="dark"] .gradient-hero {
-  background: radial-gradient(circle at top right, rgba(13, 148, 136, 0.15) 0%, transparent 50%),
-              radial-gradient(circle at bottom left, rgba(15, 102, 116, 0.15) 0%, transparent 50%),
-              linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
+
+/* Dark theme hero - deeper accents for visibility */
+[data-theme="precta-dark"] .gradient-hero {
+  background: 
+    radial-gradient(ellipse at top right, oklch(55% 0.14 175 / 0.12) 0%, transparent 50%),
+    radial-gradient(ellipse at bottom left, oklch(45% 0.12 195 / 0.12) 0%, transparent 50%),
+    linear-gradient(180deg, oklch(18% 0.02 260) 0%, oklch(22% 0.02 260) 100%);
 }
 
 .text-gradient {
-  background: linear-gradient(135deg, #0F6674 0%, #0D9488 100%);
+  /* Gradient text for headlines - primary to secondary flow */
+  background: linear-gradient(135deg, oklch(45% 0.12 195) 0%, oklch(55% 0.14 175) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
-/* Glassmorphism - Premium */
+/**
+ * GLASSMORPHISM
+ * 
+ * Premium frosted-glass effect for elevated surfaces.
+ * Blur radius: 16px (optimal for readability + aesthetic)
+ * See: https://css-tricks.com/glassmorphism-css/
+ */
 .glass-panel {
-  background: rgba(255, 255, 255, 0.7);
+  /* Light mode: white-tinted glass with soft shadow */
+  background: oklch(100% 0 0 / 0.7);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  border: 1px solid oklch(100% 0 0 / 0.5);
+  box-shadow: 
+    0 4px 6px -1px oklch(0% 0 0 / 0.05),
+    0 2px 4px -1px oklch(0% 0 0 / 0.03);
 }
 
-/* Dark mode glass */
-[data-theme="dark"] .glass-panel {
-  background: rgba(30, 41, 59, 0.7);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+/* Dark mode glass - slate-tinted with subtle border */
+[data-theme="precta-dark"] .glass-panel {
+  background: oklch(22% 0.02 260 / 0.7);
+  border: 1px solid oklch(100% 0 0 / 0.05);
+  box-shadow: 0 4px 6px -1px oklch(0% 0 0 / 0.2);
 }
 
-/* Animations */
+/**
+ * MICRO-ANIMATIONS
+ * 
+ * All animations are:
+ * - Under 200ms for interactions (FR-003)
+ * - Use CSS transforms for GPU acceleration (Article VII performance)
+ * - Disabled when prefers-reduced-motion is set (WCAG, Edge Case)
+ */
+
+/* Fade-in-up: Entry animation for hero content */
 @keyframes fade-in-up {
   from {
     opacity: 0;
@@ -118,16 +267,73 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .animate-fade-in-up {
-  animation: fade-in-up 0.6s ease-out forwards;
+  animation: fade-in-up 0.5s ease-out forwards;
 }
 
+/* Fade-in: Simple opacity transition */
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.3s ease-out forwards;
+}
+
+/* Hover lift: Card elevation effect (150ms per spec) */
 .hover-lift {
-  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+  transition: 
+    transform 150ms cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 150ms ease;
 }
 
 .hover-lift:hover {
   transform: translateY(-4px);
-  box-shadow: 0 10px 30px -4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 30px -4px oklch(0% 0 0 / 0.1);
+}
+
+/* Scale hover: Subtle grow effect for interactive elements */
+.hover-scale {
+  transition: transform 150ms ease-out;
+}
+
+.hover-scale:hover {
+  transform: scale(1.02);
+}
+
+/**
+ * REDUCED MOTION SUPPORT (WCAG, Edge Case)
+ * 
+ * Users with vestibular disorders or motion sensitivity
+ * get static versions of all animated content.
+ */
+@media (prefers-reduced-motion: reduce) {
+  /* Disable all animations */
+  .animate-fade-in-up,
+  .animate-fade-in {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+  
+  /* Remove hover transforms but keep shadow for affordance */
+  .hover-lift:hover,
+  .hover-scale:hover {
+    transform: none;
+  }
+  
+  /* Disable smooth scroll */
+  html {
+    scroll-behavior: auto;
+  }
+  
+  /* Remove all transitions */
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
 }
 
 /* Custom scrollbar */

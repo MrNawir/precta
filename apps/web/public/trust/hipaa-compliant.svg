@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 40" fill="none">
+  <!-- 
+    HIPAA Compliance Badge
+    Investor trust indicator for healthcare data security.
+    Optimized: ~500 bytes, no external dependencies.
+  -->
+  <rect width="120" height="40" rx="6" fill="#0F6674" fill-opacity="0.1"/>
+  <path d="M16 12v16M16 20h8M24 12v16" stroke="#0F6674" stroke-width="2" stroke-linecap="round"/>
+  <text x="36" y="24" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="600" fill="#0F6674">HIPAA</text>
+  <text x="72" y="24" font-family="Inter, system-ui, sans-serif" font-size="9" fill="#64748B">Compliant</text>
+</svg>
